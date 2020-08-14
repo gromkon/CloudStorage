@@ -15,7 +15,7 @@ public class Server {
         Socket socket = server.accept();
         System.out.println("Client accepted!");
         is = new DataInputStream(socket.getInputStream());
-        os = new DataOutputStream(socket.getOutputStream());
+//        os = new DataOutputStream(socket.getOutputStream());
         String fileName = is.readUTF();
         System.out.println("fileName: " + fileName);
         File file = new File("./server/" + fileName);
