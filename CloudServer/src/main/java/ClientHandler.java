@@ -41,14 +41,14 @@ public class ClientHandler {
                     String filePath = msg.split("\"")[1];
                     server.download(socket,"user" + id + "/" + filePath);
 
-                    // Без этого в файл добавляется фраза "Файл скачен", не могу разобраться почему
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    // Без этого в файл добавляется фраза "Файл скачен", не могу разобраться почему
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
 
-                    sendMsg("Файл скачен");
+//                    sendMsg("Файл скачен");
                 } else if (msg.startsWith(Commands.UPLOAD.command)) {
                     String fileName = msg.substring(msg.lastIndexOf("/") + 1, msg.length() - 1);
                     String length = is.readUTF();

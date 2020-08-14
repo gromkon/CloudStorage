@@ -80,7 +80,6 @@ public class Server {
 
     public String upload(Socket socket, String filePath, long length) {
         try {
-            System.out.println("filePath: " + filePath);
             File file = new File("CloudServer/users/" + filePath);
             DataInputStream is = new DataInputStream(socket.getInputStream());
             file.createNewFile();
@@ -103,7 +102,6 @@ public class Server {
     public void download(Socket socket, String filePath) throws IOException {
         DataOutputStream os = new DataOutputStream(socket.getOutputStream());
         File file = new File("CloudServer/users/" + filePath);
-        System.out.println("filePath " + file.getAbsolutePath());
         try (InputStream isFile = new FileInputStream(file)) {
             long length = file.length();
             os.writeUTF(String.valueOf(length));

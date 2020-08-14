@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Client {
@@ -43,7 +42,7 @@ public class Client {
                 String filePath = msg.split("\"")[1];
                 String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
                 String dirPath = msg.split("\"")[3];
-                uploadFile(fileName, dirPath);
+                System.out.println(uploadFile(fileName, dirPath));
             }
 
             String answer = waitAnswer();
@@ -118,10 +117,8 @@ public class Client {
         }
     }
 
-    private void uploadFile(String fileName, String dirPath) {
+    private String uploadFile(String fileName, String dirPath) {
         try {
-            System.out.println("dirPath " + dirPath);
-            System.out.println("fileName " + fileName);
             long length = Long.parseLong(is.readUTF());
             System.out.println(length);
             File file = new File(dirPath + "/" + fileName);
@@ -129,12 +126,18 @@ public class Client {
                 byte[] buffer = new byte[8192];
                 while (length > 0) {
                     int r = is.read(buffer);
+                    if (r > length) {
+                        osFile.write(buffer, 0, (int) length);
+                    } else {
+                        osFile.write(buffer, 0, r);
+                    }
                     length -= r;
-                    osFile.write(buffer, 0 , r);
                 }
             }
+            return "Файл загружен";
         } catch (IOException e) {
             e.printStackTrace();
+            return "Ошибка при загрузке файла!";
         }
     }
 
